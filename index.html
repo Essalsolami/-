@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>واجب حلقات التكرار: for و while</title><style>
+:root{--bg:#f4f7fc;--fg:#14213d;--card:#fff;--line:#d5ddee;--ac:#1d5fd8;--mut:#56627d;--ok:#13795b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--fg:#eef1f8;--card:#141b30;--line:#27304d;--ac:#7fb0ff;--mut:#a3aec9;--ok:#5fd8ab}}
+:root[data-theme="dark"]{--bg:#0b1020;--fg:#eef1f8;--card:#141b30;--line:#27304d;--ac:#7fb0ff;--mut:#a3aec9;--ok:#5fd8ab}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font:18px/1.8 "Segoe UI","Noto Sans Arabic",Tahoma,sans-serif;padding:24px 16px 60px}
+main{max-width:800px;margin:auto}
+h1{font-size:34px;line-height:1.35;margin:6px 0 8px}
+h2{font-size:26px;margin:38px 0 12px}
+.sub{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:14px 0}
+ol.st{list-style:none;counter-reset:s;padding:0}
+ol.st li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;margin:12px 0}
+ol.st li::before{content:counter(s);flex:none;width:36px;height:36px;border-radius:50%;background:var(--ac);color:var(--bg);font:700 19px/36px Consolas,monospace;text-align:center}
+.btn{display:inline-block;background:var(--ac);color:var(--bg);border:0;border-radius:10px;padding:10px 20px;font:700 18px "Segoe UI",Tahoma,sans-serif;text-decoration:none;cursor:pointer}
+.btn.o{background:none;color:var(--ac);border:2px solid var(--ac)}
+.run{display:inline-block;background:#1fa44a;color:#fff;border-radius:6px;padding:0 10px;font-weight:700}
+code{direction:ltr;unicode-bidi:isolate;font-family:Consolas,monospace;color:var(--ac)}
+.q h3{font-size:22px;margin-bottom:6px}
+.q h3 span{color:var(--mut);font-weight:400;font-size:18px}
+pre{direction:ltr;text-align:left;background:#0f172a;color:#e8edf7;border-radius:10px;padding:14px 18px;font:20px/1.6 Consolas,"Courier New",monospace;overflow:auto;margin:8px 0}
+.cp{font-size:15px;padding:4px 12px;margin-bottom:8px}
+textarea,input,select{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font:18px/1.6 Consolas,"Segoe UI",Tahoma,sans-serif}
+textarea{min-height:96px;resize:vertical}
+label{display:block;font-weight:700;margin:12px 0 4px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}h1{font-size:28px}}
+.err{color:#d63b3b;min-height:1.6em}
+.note{border-inline-start:5px solid var(--ok);padding:6px 16px;margin:14px 0;color:var(--mut)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+</style></head><body><main>
+<h1>ما مخرجات هذه البرامج؟</h1>
+<p class="sub">حلقتا التكرار <code>for</code> و <code>while</code> في بايثون</p>
+
+<h2>كيف أتحقق من إجابتي؟</h2>
+<div class="card"><ol class="st">
+<li><div>افتح موقع بايثون على الإنترنت: <a class="btn o" href="https://www.online-python.com/" target="_blank" rel="noopener">online-python.com</a></div></li>
+<li><div>سيظهر في المحرر برنامج جاهز. <b>امسحه كله</b>: اضغط داخل المحرر ثم <code>Ctrl + A</code> ثم <code>Delete</code>.</div></li>
+<li><div>اكتب الكود الذي أمامك في السؤال (أو اضغط «نسخ الكود» ثم الصقه بـ <code>Ctrl + V</code>). انتبه للمسافات في بداية الأسطر.</div></li>
+<li><div>اضغط زر <span class="run">Run</span> الأخضر.</div></li>
+<li><div>انظر إلى النتيجة التي ظهرت وقارنها بإجابتك. إن اختلفت، اقرأ الكود سطرًا سطرًا وحاول فهم الفرق.</div></li>
+</ol></div>
+<p class="note">اكتب إجابتك من تفكيرك أولًا، ثم تحقق منها بالموقع. إن كان الناتج عدة أسطر فاكتب كل سطر في سطر مستقل.</p>
+
+<h2>حلقة for</h2>
+<div class="card q" data-t="for"><h3>السؤال 1</h3><button class="btn o cp" type="button">نسخ الكود</button>
+<pre>for i in range(4):
+    print(i)</pre>
+<label>ماذا يطبع البرنامج؟</label><textarea></textarea></div>
+<div class="card q" data-t="for"><h3>السؤال 2</h3><button class="btn o cp" type="button">نسخ الكود</button>
+<pre>for i in range(2, 7, 2):
+    print(i * 3)</pre>
+<label>ماذا يطبع البرنامج؟</label><textarea></textarea></div>
+
+<h2>حلقة while</h2>
+<div class="card q" data-t="while"><h3>السؤال 3</h3><button class="btn o cp" type="button">نسخ الكود</button>
+<pre>n = 1
+while n &lt;= 3:
+    print(n)
+    n = n + 1</pre>
+<label>ماذا يطبع البرنامج؟</label><textarea></textarea></div>
+<div class="card q" data-t="while"><h3>السؤال 4</h3><button class="btn o cp" type="button">نسخ الكود</button>
+<pre>n = 10
+while n &gt; 0:
+    print(n)
+    n = n - 4</pre>
+<label>ماذا يطبع البرنامج؟</label><textarea></textarea></div>
+
+<h2>إرسال الواجب</h2>
+<div class="card">
+<div class="g2"><div><label for="nm">اسم الطالب</label><input id="nm" autocomplete="name"></div>
+<div><label for="gr">الصف</label><input id="gr" placeholder="مثال: ثاني متوسط / شعبة 2"></div></div>
+<p class="err" id="err"></p>
+<button class="btn" id="go" type="button">إرسال الواجب</button></div>
+
+<div class="card" id="out" hidden>
+<p><b>أنت الآن على خطوة واحدة.</b> اضغط الزر لفتح تلقرام وفيه رسالة جاهزة بها اسمك وصفك وإجاباتك. اختر محادثة معلمك ثم اضغط <b>إرسال</b>. لا يصل الواجب إلا بعد ضغطك على إرسال في تلقرام.</p>
+<div class="row"><a class="btn" id="tg" target="_blank" rel="noopener">مشاركة الحل عبر تلقرام</a><button class="btn o" id="cpb" type="button">نسخ نص الواجب</button></div>
+<label for="pv">نص الواجب (يمكنك نسخه ولصقه في محادثة تلقرام)</label><textarea id="pv" readonly></textarea></div>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function cpy(t,b){var o=b.textContent;
+function ok(){b.textContent='تم النسخ ✓';setTimeout(function(){b.textContent=o},1600)}
+function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){b.textContent='حدّد النص وانسخه يدويًا'}a.remove()}
+try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}}
+[].forEach.call(document.querySelectorAll('.cp'),function(b){b.onclick=function(){cpy(b.parentNode.querySelector('pre').textContent,b)}});
+$('cpb').onclick=function(){cpy($('pv').value,this)};
+$('go').onclick=function(){
+var n=$('nm').value.trim(),g=$('gr').value.trim();
+if(!n||!g){$('err').textContent='اكتب اسمك وصفك أولًا.';(n?$('gr'):$('nm')).focus();return}
+$('err').textContent='';
+var L=['الاسم: '+n,'الصف: '+g,''];
+[].forEach.call(document.querySelectorAll('.q'),function(q,i){
+var a=q.querySelector('textarea').value.trim().replace(/\n+/g,' | ');
+L.push('السؤال '+(i+1)+' ('+q.dataset.t+'): '+(a||'لم يُجب'))});
+var body=L.join('\n');
+$('pv').value=body;
+$('tg').href='https://t.me/share/url?url='+encodeURIComponent('https://claude.ai/artifact/TQ5Yfw4u33jXJspwofUeuQ')+'&text='+encodeURIComponent(body);
+$('out').hidden=false;$('out').scrollIntoView({behavior:'smooth'})};
+})();
+</script></body></html>
