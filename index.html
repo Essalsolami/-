@@ -1,7 +1,12 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>واجب حلقات التكرار: for و while</title><style>
-:root{--bg:#f4f7fc;--fg:#14213d;--card:#fff;--line:#d5ddee;--ac:#1d5fd8;--mut:#56627d;--ok:#13795b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--fg:#eef1f8;--card:#141b30;--line:#27304d;--ac:#7fb0ff;--mut:#a3aec9;--ok:#5fd8ab}}
-:root[data-theme="dark"]{--bg:#0b1020;--fg:#eef1f8;--card:#141b30;--line:#27304d;--ac:#7fb0ff;--mut:#a3aec9;--ok:#5fd8ab}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>واجب حلقات التكرار: for و while</title>
+<style>
+:root{--bg:#f4f7fc;--fg:#14213d;--card:#fff;--line:#d5ddee;--ac:#1d5fd8;--mut:#56627d;--ok:#13795b}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1020;--fg:#eef1f8;--card:#141b30;--line:#27304d;--ac:#7fb0ff;--mut:#a3aec9;--ok:#5fd8ab}}
 *{box-sizing:border-box;margin:0}
 body{background:var(--bg);color:var(--fg);font:18px/1.8 "Segoe UI","Noto Sans Arabic",Tahoma,sans-serif;padding:24px 16px 60px}
 main{max-width:800px;margin:auto}
@@ -14,13 +19,13 @@ ol.st li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;margin
 ol.st li::before{content:counter(s);flex:none;width:36px;height:36px;border-radius:50%;background:var(--ac);color:var(--bg);font:700 19px/36px Consolas,monospace;text-align:center}
 .btn{display:inline-block;background:var(--ac);color:var(--bg);border:0;border-radius:10px;padding:10px 20px;font:700 18px "Segoe UI",Tahoma,sans-serif;text-decoration:none;cursor:pointer}
 .btn.o{background:none;color:var(--ac);border:2px solid var(--ac)}
+.btn:disabled{opacity:.6;cursor:wait}
 .run{display:inline-block;background:#1fa44a;color:#fff;border-radius:6px;padding:0 10px;font-weight:700}
 code{direction:ltr;unicode-bidi:isolate;font-family:Consolas,monospace;color:var(--ac)}
 .q h3{font-size:22px;margin-bottom:6px}
-.q h3 span{color:var(--mut);font-weight:400;font-size:18px}
 pre{direction:ltr;text-align:left;background:#0f172a;color:#e8edf7;border-radius:10px;padding:14px 18px;font:20px/1.6 Consolas,"Courier New",monospace;overflow:auto;margin:8px 0}
 .cp{font-size:15px;padding:4px 12px;margin-bottom:8px}
-textarea,input,select{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font:18px/1.6 Consolas,"Segoe UI",Tahoma,sans-serif}
+textarea,input{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font:18px/1.6 Consolas,"Segoe UI",Tahoma,sans-serif}
 textarea{min-height:96px;resize:vertical}
 label{display:block;font-weight:700;margin:12px 0 4px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -28,7 +33,26 @@ label{display:block;font-weight:700;margin:12px 0 4px}
 .err{color:#d63b3b;min-height:1.6em}
 .note{border-inline-start:5px solid var(--ok);padding:6px 16px;margin:14px 0;color:var(--mut)}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
-</style></head><body><main>
+/* إضافات: التنبيه والتأكيد ولوحة المعلم */
+.bad{border-color:#d63b3b!important;box-shadow:0 0 0 2px #d63b3b33}
+.alert{background:#d63b3b18;border:1px solid #d63b3b;border-radius:10px;padding:12px 16px;margin:12px 0}
+.done{text-align:center;padding:44px 22px}
+.done h2{margin:0 0 8px;color:var(--ok);font-size:36px}
+footer{margin-top:50px;border-top:1px solid var(--line);padding-top:18px;text-align:center}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:start}
+tr.r{cursor:pointer}tr.r:hover{background:var(--card)}
+.det{background:var(--card);padding:12px 16px}
+.det div{margin:6px 0}
+.y{color:var(--ok)}.n{color:#d63b3b}
+</style>
+</head>
+<body>
+<main>
+
+<!-- ============ نموذج الطالب ============ -->
+<div id="hw">
 <h1>ما مخرجات هذه البرامج؟</h1>
 <p class="sub">حلقتا التكرار <code>for</code> و <code>while</code> في بايثون</p>
 
@@ -70,34 +94,161 @@ while n &gt; 0:
 <div class="card">
 <div class="g2"><div><label for="nm">اسم الطالب</label><input id="nm" autocomplete="name"></div>
 <div><label for="gr">الصف</label><input id="gr" placeholder="مثال: ثاني متوسط / شعبة 2"></div></div>
-<p class="err" id="err"></p>
-<button class="btn" id="go" type="button">إرسال الواجب</button></div>
+<div class="alert" id="err" role="alert" hidden></div>
+<p class="sub">تعبئة الاسم والصف وحل جميع الأسئلة إجباري قبل الإرسال.</p>
+<button class="btn" id="go" type="button">إرسال الواجب للمعلم</button></div>
+</div>
 
-<div class="card" id="out" hidden>
-<p><b>أنت الآن على خطوة واحدة.</b> اضغط الزر لفتح تلقرام وفيه رسالة جاهزة بها اسمك وصفك وإجاباتك. اختر محادثة معلمك ثم اضغط <b>إرسال</b>. لا يصل الواجب إلا بعد ضغطك على إرسال في تلقرام.</p>
-<div class="row"><a class="btn" id="tg" target="_blank" rel="noopener">مشاركة الحل عبر تلقرام</a><button class="btn o" id="cpb" type="button">نسخ نص الواجب</button></div>
-<label for="pv">نص الواجب (يمكنك نسخه ولصقه في محادثة تلقرام)</label><textarea id="pv" readonly></textarea></div>
+<!-- ============ رسالة التأكيد ============ -->
+<div class="card done" id="done" hidden>
+<h2>تم إرسال الواجب</h2>
+<p class="sub" id="dnote"></p>
+</div>
+
+<!-- ============ لوحة المعلم ============ -->
+<section id="tp" hidden>
+<h2>لوحة المعلم</h2>
+<div class="row"><span class="sub" id="tcount"></span>
+<button class="btn o" id="trefresh" type="button">تحديث</button>
+<button class="btn" id="texit" type="button">خروج من وضع المعلم</button></div>
+<p class="sub">اضغط على اسم الطالب لعرض إجاباته التفصيلية.</p>
+<div class="tw"><table><thead><tr><th>الاسم</th><th>الصف</th><th>وقت التسليم</th><th>الدرجة</th></tr></thead><tbody id="tbody"></tbody></table></div>
+</section>
+
+<footer>
+<button class="btn o" id="tbtn" type="button">دخول المعلم</button>
+<div class="card" id="pwbox" hidden style="max-width:380px;margin:14px auto 0">
+<label for="pw">كلمة سر المعلم</label>
+<input id="pw" type="password" autocomplete="off">
+<p class="err" id="pwerr"></p>
+<button class="btn" id="pwok" type="button">دخول</button>
+</div>
+</footer>
+
 </main>
 <script>
+/* ===================== إعدادات يسهل تعديلها ===================== */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSmBcVB8_-NBrNRa6us1FgkEy0_oTKdcfh0X1-gxlbunucK0mzIk7UbJlFnWHiTd1M/exec";            // الصق هنا رابط Web App الخاص بك (ينتهي بـ /exec)
+const TEACHER_PASSWORD = "teacher2026"; // تُستخدم في الوضع التجريبي فقط. عند ربط الجدول يتحقق السكربت في Google من كلمة السر
+/* ================================================================ */
+
 (function(){
 var $=function(i){return document.getElementById(i)};
+function el(t,x,c){var e=document.createElement(t);if(x!=null)e.textContent=x;if(c)e.className=c;return e}
+var Q=[].slice.call(document.querySelectorAll('.q')),submitted=false,tpw='';
+
+function show(v){
+  $('hw').hidden=v!=='hw';$('done').hidden=v!=='done';$('tp').hidden=v!=='tp';
+  $('tbtn').hidden=v==='tp';
+  if(v==='tp')$('pwbox').hidden=true;
+}
+function home(){show(submitted?'done':'hw')}
+
+/* ---- نسخ الكود ---- */
 function cpy(t,b){var o=b.textContent;
-function ok(){b.textContent='تم النسخ ✓';setTimeout(function(){b.textContent=o},1600)}
-function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){b.textContent='حدّد النص وانسخه يدويًا'}a.remove()}
-try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}}
+  function ok(){b.textContent='تم النسخ ✓';setTimeout(function(){b.textContent=o},1600)}
+  function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){b.textContent='حدّد النص وانسخه يدويًا'}a.remove()}
+  try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}}
 [].forEach.call(document.querySelectorAll('.cp'),function(b){b.onclick=function(){cpy(b.parentNode.querySelector('pre').textContent,b)}});
-$('cpb').onclick=function(){cpy($('pv').value,this)};
+
+/* ---- إزالة علامة الخطأ عند الكتابة ---- */
+document.addEventListener('input',function(e){
+  e.target.classList.remove('bad');
+  var q=e.target.closest('.q');if(q&&e.target.value.trim())q.classList.remove('bad');
+});
+
+/* ---- الإرسال ---- */
+function showErr(msg){var a=$('err');a.textContent=msg;a.hidden=false;a.scrollIntoView({behavior:'smooth',block:'center'})}
+
 $('go').onclick=function(){
-var n=$('nm').value.trim(),g=$('gr').value.trim();
-if(!n||!g){$('err').textContent='اكتب اسمك وصفك أولًا.';(n?$('gr'):$('nm')).focus();return}
-$('err').textContent='';
-var L=['الاسم: '+n,'الصف: '+g,''];
-[].forEach.call(document.querySelectorAll('.q'),function(q,i){
-var a=q.querySelector('textarea').value.trim().replace(/\n+/g,' | ');
-L.push('السؤال '+(i+1)+' ('+q.dataset.t+'): '+(a||'لم يُجب'))});
-var body=L.join('\n');
-$('pv').value=body;
-$('tg').href='https://t.me/share/url?url='+encodeURIComponent('https://claude.ai/artifact/TQ5Yfw4u33jXJspwofUeuQ')+'&text='+encodeURIComponent(body);
-$('out').hidden=false;$('out').scrollIntoView({behavior:'smooth'})};
+  var n=$('nm').value.trim(),g=$('gr').value.trim(),miss=[],ans=[];
+  $('nm').classList.toggle('bad',!n);$('gr').classList.toggle('bad',!g);
+  Q.forEach(function(q,i){
+    var a=q.querySelector('textarea').value.trim();ans.push(a);
+    q.classList.toggle('bad',!a);
+    if(!a)miss.push('السؤال '+(i+1));
+  });
+  var data=[];if(!n)data.push('اسم الطالب');if(!g)data.push('الصف');
+  if(data.length||miss.length){
+    var t='لا يمكن الإرسال قبل إكمال الواجب. ';
+    if(data.length)t+='بيانات ناقصة: '+data.join('، ')+'. ';
+    if(miss.length)t+='أسئلة غير محلولة: '+miss.join('، ')+'.';
+    showErr(t);return;
+  }
+  $('err').hidden=true;
+  send({name:n,grade:g,answers:ans});
+};
+
+function send(d){
+  var b=$('go');b.disabled=true;b.textContent='جارٍ الإرسال…';
+  function ok(note){submitted=true;$('dnote').textContent=note||'';show('done');scrollTo(0,0)}
+  function fail(){b.disabled=false;b.textContent='إرسال الواجب للمعلم';showErr('تعذّر الإرسال. تأكد من اتصالك بالإنترنت ثم أعد المحاولة.')}
+  if(!APPS_SCRIPT_URL){ /* وضع تجريبي: حفظ على هذا الجهاز */
+    try{
+      var r=JSON.parse(localStorage.getItem('hw_records')||'[]');
+      r.push({time:new Date().toISOString(),name:d.name,grade:d.grade,answers:d.answers});
+      localStorage.setItem('hw_records',JSON.stringify(r));
+    }catch(e){}
+    ok('وضع تجريبي: لم يُربط الموقع بجدول Google Sheets بعد، فحُفظ الواجب على هذا الجهاز فقط.');
+    return;
+  }
+  fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify(d)})
+    .then(function(r){return r.json()})
+    .then(function(j){j&&j.ok?ok():fail()})
+    .catch(fail);
+}
+
+/* ---- دخول المعلم ---- */
+$('tbtn').onclick=function(){$('pwbox').hidden=false;$('pwerr').textContent='';$('pw').focus()};
+$('pw').onkeydown=function(e){if(e.key==='Enter')login()};
+$('pwok').onclick=login;
+
+function login(){
+  var pw=$('pw').value;$('pwerr').textContent='';
+  if(!APPS_SCRIPT_URL){
+    if(pw!==TEACHER_PASSWORD){$('pwerr').textContent='كلمة السر غير صحيحة.';return}
+    var r=[];try{r=JSON.parse(localStorage.getItem('hw_records')||'[]')}catch(e){}
+    $('pw').value='';openPanel(r);return;
+  }
+  loadRemote(pw,function(rows){tpw=pw;$('pw').value='';openPanel(rows)},function(msg){$('pwerr').textContent=msg});
+}
+function loadRemote(pw,okf,errf){
+  fetch(APPS_SCRIPT_URL+'?action=list&pw='+encodeURIComponent(pw))
+    .then(function(r){return r.json()})
+    .then(function(j){
+      if(j&&j.ok&&j.rows)okf(j.rows);
+      else errf(j&&j.error==='password'?'كلمة السر غير صحيحة.':'تعذّر جلب الحلول.');
+    })
+    .catch(function(){errf('تعذّر الاتصال بجدول Google Sheets.')});
+}
+function openPanel(rows){render(rows);show('tp')}
+
+function render(rows){
+  var tb=$('tbody');tb.textContent='';
+  $('tcount').textContent='عدد الطلاب: '+rows.length;
+  rows.slice().reverse().forEach(function(r){
+    var tr=el('tr',null,'r'),d=new Date(r.time);
+    tr.appendChild(el('td',r.name));tr.appendChild(el('td',r.grade));
+    tr.appendChild(el('td',isNaN(d)?String(r.time||''):d.toLocaleString('ar')));
+    tr.appendChild(el('td',r.score==null||r.score===''?'—':r.score+' / '+Q.length));
+    var dr=el('tr'),dt=el('td',null,'det');dt.colSpan=4;dr.hidden=true;
+    (r.answers||[]).forEach(function(a,i){
+      var line=el('div');line.appendChild(el('b','السؤال '+(i+1)+': '));
+      var s=el('span',a===''||a==null?'لم يُجب':a);s.style.whiteSpace='pre-wrap';line.appendChild(s);
+      if(r.marks&&r.marks[i]!=null){line.appendChild(el('span',r.marks[i]?'  ✓ صحيحة':'  ✗ خاطئة',r.marks[i]?'y':'n'))}
+      dt.appendChild(line);
+    });
+    dr.appendChild(dt);
+    tr.onclick=function(){dr.hidden=!dr.hidden};
+    tb.appendChild(tr);tb.appendChild(dr);
+  });
+}
+$('trefresh').onclick=function(){
+  if(!APPS_SCRIPT_URL){var r=[];try{r=JSON.parse(localStorage.getItem('hw_records')||'[]')}catch(e){}render(r);return}
+  loadRemote(tpw,render,function(m){alert(m)});
+};
+$('texit').onclick=function(){tpw='';$('tbody').textContent='';home()};
 })();
-</script></body></html>
+</script>
+</body>
+    </html>
